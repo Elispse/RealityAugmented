@@ -11,9 +11,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Samples/AR Foundation QR Tracking/0.2.1/ARFoundationTrackingSample/Scenes/ARFoundationQRVisualizationSample.unity
     guid: 345ee45186083674592ed67b13839ea6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Elijah_TestScene.unity
     guid: 728b936bf92b47c4a95b2523ae3da40a
+  - enabled: 0
+    path: Assets/Scenes/JaydenTestScene.unity
+    guid: 2d02e0b38756aec4680a5439e673e036
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 992601741f051f746b9342626ebad7e4
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}
