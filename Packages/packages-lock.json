@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f9fd769be7c634610f2a61aa914a1a55f34740e1"
+    },
     "com.unity.burst": {
       "version": "1.8.18",
       "depth": 2,
@@ -329,6 +336,20 @@
         "com.unity.xr.legacyinputhelpers": "2.1.7"
       },
       "url": "https://packages.unity.com"
+    },
+    "jp.co.hololab.arfoundationqrtracking": {
+      "version": "https://github.com/HoloLabInc/ARFoundationQRTracking-Unity.git?path=packages/jp.co.hololab.arfoundationqrtracking",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "461bd2131444ad615ac234648b66a62f61d540db"
+    },
+    "jp.co.hololab.arfoundationqrtracking.libraries": {
+      "version": "https://github.com/HoloLabInc/ARFoundationQRTracking-Unity.git?path=packages/jp.co.hololab.arfoundationqrtracking.libraries",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "461bd2131444ad615ac234648b66a62f61d540db"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
