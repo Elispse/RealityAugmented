@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnTime: 1
   toSpawn: {fileID: 607499966398372786, guid: 426f9bf9dac15124a80a4abebe080149, type: 3}
-  playerbase: {fileID: 1180196550}
+  path: {fileID: 1601162061}
 --- !u!4 &256242443
 Transform:
   m_ObjectHideFlags: 0
@@ -794,7 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a458d9464761b444f8a6481adb1e0aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 9.9
 --- !u!1 &1368601276
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,10 +933,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e81932565b5a4498d3fc0961fb0122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathSegments: 1
+  resetSpline: 0
+  pathSegments: 5
   thePath: {fileID: 1601162062}
   beginning: {fileID: 256242443}
   ending: {fileID: 1180196550}
+  pathVariance: 5
 --- !u!114 &1601162062
 MonoBehaviour:
   m_ObjectHideFlags: 0

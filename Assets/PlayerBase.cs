@@ -2,17 +2,26 @@ using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
 {
-    [SerializeField] private float health;
+    public static PlayerBase instance { get; private set; }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Base Stats")]
+    [SerializeField] private float health;
+    
     void Start()
     {
-        
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Deal damage to the base
+    /// </summary>
+    /// <param name="damage">damage dealt</param>
+    public void DamageBase(float damage)
     {
-        
+        health -= damage;
+        if (health <= 0)
+        {
+            Debug.Log("I have died now do something about it");
+        }
     }
 }

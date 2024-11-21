@@ -3,26 +3,26 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private float spawnTime = 1.0f;
-    [SerializeField] private EnemyScript toSpawn;
-    [SerializeField] private Transform playerbase; // this at some point will be replaced with the path, how ever that is made
+	[Header("Spawner Requirements")]
+	[SerializeField] private EnemyScript toSpawn;
+    [SerializeField] private Pathway path;
+
+	[Header("Spawner Stats")]
+	[SerializeField] private float spawnTime = 1.0f;
 
     void Start()
     {
 		StartCoroutine(spawnTimer());
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+	/// Spawns enemies at a rate denoted by spawnTime. repeats forever after first called.
     private IEnumerator spawnTimer()
     {
         yield return new WaitForSeconds(spawnTime);
+
 		EnemyScript spawned = Instantiate(toSpawn.gameObject, transform.position, Quaternion.identity).GetComponent<EnemyScript>();
-		spawned.SetTarget(playerbase);
+		spawned.SetPath(path);
+
 		StartCoroutine(spawnTimer());
     }
 }
