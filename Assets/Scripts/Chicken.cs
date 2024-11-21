@@ -1,16 +1,21 @@
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 public class Chicken : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Animator animator;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void OnEnable()
+	{
+		if (animator == null)
+		{
+			animator = GetComponentInChildren<Animator>();
+		}
+	}
+
+	public void PlaceChicken(ARTrackable trackableParent)
+	{
+		transform.SetParent(trackableParent?.transform);
+		animator.SetBool("IsAwake", true);
+	}
 }
