@@ -6,9 +6,14 @@ public class EnemyScript : MonoBehaviour
 	[Header("Enemy Stats")]
     [SerializeField] private float health = 1;
     [SerializeField] private float speed = 2;
+	[SerializeField] private float damage = 1;
+	[SerializeField] private float range = 1;
+	[SerializeField] private float attackSpeed = 1;
+	private float attackTimer;
 
 	[Header("Pathway Stuff")]
-	[SerializeField] private Pathway path; // what the enemy will move towards. will change to a spline at some point
+	[SerializeField] private Pathway path; // pathway the enemy follows towards the target
+	[SerializeField] private Transform target; // the target the enemy will hit if close enough
 	// This code is taken from my modified maple spline follower code
 	[Range(0, 1)] public float tdistance = 0;
 	public float length { get { return path.GetPath().CalculateLength(); } }
@@ -16,6 +21,19 @@ public class EnemyScript : MonoBehaviour
 
 	void Update()
     {
+		if (Vector3.Distance(transform.position, target.position) < range)
+		{
+			// attack base on timer once in range
+			attackTimer -= Time.deltaTime;
+			if (attackTimer <= 0)
+			{
+				PlayerBase.instance.DamageBase(damage);
+				resetAttack();
+			}
+
+			return;
+		}
+		
 		// update distance based on speed
 		distance += speed * Time.deltaTime;
 
@@ -26,9 +44,14 @@ public class EnemyScript : MonoBehaviour
 		if (tdistance >= 1)
 		{
 			death();
-			PlayerBase.instance.DamageBase(1.0f);
+			PlayerBase.instance.DamageBase(damage);
 		}
     }
+
+	private void resetAttack()
+	{
+		attackTimer = 1.0f / attackSpeed;
+	}
 
 	/// <summary>
 	/// Updates the position of the enemy along the spline based on t
@@ -55,16 +78,25 @@ public class EnemyScript : MonoBehaviour
 	/// setter for the path variable
 	/// </summary>
 	/// <param name="target">Pathway the enemy will follow</param>
-	public void SetPath(Pathway target)
+	public void SetPath(Pathway path)
     {
-        this.path = target;
+        this.path = path;
     }
+
+	/// <summary>
+	/// setter for the target variable
+	/// </summary>
+	/// <param name="target">Pathway the enemy will follow</param>
+	public void SetTarget(Transform target)
+	{
+		this.target = target;
+	}
 
 	/// <summary>
 	/// Deal damage to enemy
 	/// </summary>
 	/// <param name="damage">Amount of damage taken</param>
-    public void TakeDamage(float damage)
+	public void TakeDamage(float damage)
     {
         health -= damage;
         Debug.Log(" I have " + health + " health left");
