@@ -939,12 +939,12 @@ PrefabInstance:
     - target: {fileID: 8251427001178363319, guid: 601bec3b9fe1fa4478fba4476c736f57,
         type: 3}
       propertyPath: pathSegments
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8251427001178363319, guid: 601bec3b9fe1fa4478fba4476c736f57,
         type: 3}
       propertyPath: pathVariance
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8647308085410055804, guid: 601bec3b9fe1fa4478fba4476c736f57,
         type: 3}
