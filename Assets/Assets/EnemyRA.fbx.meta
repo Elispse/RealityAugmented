@@ -39,7 +39,130 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Walk
+      internalID: 2667949614841947897
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Attack
+      internalID: 6720303635017113406
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: EnemyRA|Attack
+      takeName: EnemyRA|Attack
+      internalID: -485916124491944183
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.24611977
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: EnemyRA|Walk
+      takeName: EnemyRA|Walk
+      internalID: -4130657695675927809
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -90,7 +213,92 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: EnemyRA(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Enemy
+      parentName: EnemyRA(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -6.123234e-17, y: 1, z: 6.123234e-17, w: -3.7493994e-33}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EnemyRA
+      parentName: EnemyRA(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Bone
+      parentName: EnemyRA
+      position: {x: -0, y: 0, z: 0.11332704}
+      rotation: {x: -0.00000006324836, y: 0.7071068, z: -0.7071067, w: 0.00000012506557}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.001
+      parentName: Bone
+      position: {x: 2.842171e-16, y: 0.021580448, z: -5.9292307e-23}
+      rotation: {x: 0.000000024578284, y: 0.00000006576525, z: -0.71651125, w: 0.6975756}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone.005
+      parentName: Bone.001
+      position: {x: 0.0000000028684735, y: 0.02115248, z: -3.375078e-16}
+      rotation: {x: 0.44727096, y: 0.4556301, z: 0.52639896, w: 0.561475}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Bone.006
+      parentName: Bone.005
+      position: {x: -0.0000000017881389, y: 0.022844817, z: 1.7053025e-15}
+      rotation: {x: 6.362859e-10, y: 0.00000011856532, z: -0.002277731, w: 0.99999744}
+      scale: {x: 0.9999999, y: 0.99999994, z: 1}
+    - name: Bone.002
+      parentName: Bone
+      position: {x: 2.842171e-16, y: 0.021580448, z: -5.9292307e-23}
+      rotation: {x: 0.43579826, y: 0.43967196, z: 0.55758244, w: 0.5530554}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Bone.003
+      parentName: Bone.002
+      position: {x: 0.0000000021792947, y: 0.021334523, z: 2.4424906e-17}
+      rotation: {x: 0.08649997, y: -0.087268874, z: -0.06507734, w: 0.9902863}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.004
+      parentName: Bone.003
+      position: {x: -1.8740564e-15, y: 0.02265525, z: 1.1368684e-15}
+      rotation: {x: -5.251033e-10, y: -0.000000011779709, z: -0.0032257237, w: 0.9999948}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.007
+      parentName: Bone
+      position: {x: 2.842171e-16, y: 0.021580448, z: -5.9292307e-23}
+      rotation: {x: -0.5336144, y: -0.000000013642898, z: 0.00000012846719, w: 0.8457279}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone.008
+      parentName: Bone.007
+      position: {x: -6.4111586e-17, y: 0.027752666, z: 5.6908914e-16}
+      rotation: {x: -0.10237308, y: -0.04240434, z: 0.2233294, w: 0.9684243}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone.010
+      parentName: Bone.008
+      position: {x: -0.000000002384186, y: 0.011213778, z: 8.5265126e-16}
+      rotation: {x: -0.0000000331484, y: 0.00000005999025, z: -0.37572652, w: 0.92673063}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Bone.011
+      parentName: Bone.010
+      position: {x: -1.4901179e-10, y: 0.0251124, z: 4.796163e-16}
+      rotation: {x: 7.276981e-12, y: 0.00000002400851, z: -0.014010934, w: 0.9999019}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone.009
+      parentName: Bone.007
+      position: {x: -6.4111586e-17, y: 0.027752666, z: 5.6908914e-16}
+      rotation: {x: -0.00000017881393, y: 0.00000003912209, z: -0.58954877, w: 0.8077328}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone.012
+      parentName: Bone.009
+      position: {x: 5.9604516e-10, y: 0.011213773, z: -3.5527135e-16}
+      rotation: {x: -0.000000028737759, y: 0.000000045624716, z: -0.13782874, w: 0.99045616}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.013
+      parentName: Bone.012
+      position: {x: -7.823125e-10, y: 0.025112404, z: 1.4210854e-15}
+      rotation: {x: 8.0600443e-10, y: 1.4729684e-10, z: 0.0042714872, w: 0.9999909}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

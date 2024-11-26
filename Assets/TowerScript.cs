@@ -123,7 +123,7 @@ public class TowerScript : MonoBehaviour
         else
         {
 			// debug gizmos that show me attack range because there are no enemies in the range
-			Gizmos.DrawSphere(detectionSphere.transform.position, detectionSphere.radius);
+			Gizmos.DrawSphere(detectionSphere.transform.position, detectionSphere.radius * transform.lossyScale.x);
 		}
 	}
 }
