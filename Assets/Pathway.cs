@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -6,8 +7,9 @@ public class Pathway : MonoBehaviour
 {
 	[Header("Path Requirements")]
 	[SerializeField] private SplineContainer thePath;
-    [SerializeField] private Transform beginning;
-    [SerializeField] private Transform ending;
+	[SerializeField] private Transform beginning;
+	[SerializeField] private Transform ending;
+	[SerializeField] private LineRenderer lineRenderer;
 
 	[Header("Path Modification")]
 	public bool resetPath = false;
@@ -17,8 +19,8 @@ public class Pathway : MonoBehaviour
     void Start()
     {
         thePath = GetComponent<SplineContainer>();
-		ResetSplinePath();
-		StartCoroutine(ResetStuff());
+		//ResetSplinePath();
+		//StartCoroutine(ResetStuff());
 	}
 
 	private IEnumerator ResetStuff()
@@ -48,14 +50,33 @@ public class Pathway : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Sets the Beginning of the pathway
+	/// </summary>
+	public void SetBeginning(Transform beginning)
+	{
+		this.beginning = beginning;
+	}
+
+	/// <summary>
+	/// Sets the Ending of the pathway
+	/// </summary>
+	public void SetEnding(Transform ending)
+	{
+		this.ending = ending;
+	}
+
+	/// <summary>
 	/// Recalculates the Spline Pathway
 	/// </summary>
 	public void ResetSplinePath()
 	{
 		thePath.Spline.Clear();
 
+		List<Vector3> linepositions = new List<Vector3>();
+
 		// first add the beginning position to the path
-		thePath.Spline.Add(new BezierKnot(beginning.position), TangentMode.AutoSmooth);
+		thePath.Spline.Add(new BezierKnot(beginning.position ), TangentMode.AutoSmooth);
+		linepositions.Add(beginning.position );
 
 		// for every path segment between the beginning and end, offset it perpendicular to the direction of the path
 		for (int i = 1; i < pathSegments; i++)
@@ -71,10 +92,15 @@ public class Pathway : MonoBehaviour
 
 			segmentPosition += left.normalized * Random.Range(-pathVariance, pathVariance);
 
-			thePath.Spline.Add(new BezierKnot(segmentPosition), TangentMode.AutoSmooth);
+			thePath.Spline.Add(new BezierKnot(segmentPosition ), TangentMode.AutoSmooth);
+			linepositions.Add(segmentPosition );
 		}
 
 		// finally, add the ending position to the path
-		thePath.Spline.Add(new BezierKnot(ending.position), TangentMode.AutoSmooth);
+		thePath.Spline.Add(new BezierKnot(ending.position ), TangentMode.AutoSmooth);
+		linepositions.Add(ending.position );
+
+		lineRenderer.positionCount = linepositions.Count;
+		lineRenderer.SetPositions(linepositions.ToArray());
 	}
 }
