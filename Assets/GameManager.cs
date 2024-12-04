@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Pathway pathwaySpawn;
 
     private EnemySpawner enemyBase;
+    private PlayerBase playerBase;
     private Pathway path;
 
     [SerializeField] private Button enemyspawnerButton;
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
 		whatIAmPlacing = Instantiate(playerSpawn.gameObject, transform);
 		path.SetEnding(whatIAmPlacing.transform);
 		playerbaseButton.gameObject.SetActive(true);
+		playerBase = playerSpawn.GetComponent<PlayerBase>();
 	}
 
     public void SpawnBase()
@@ -71,14 +73,16 @@ public class GameManager : MonoBehaviour
 		playerbaseButton.gameObject.SetActive(false);
         enemyBase.SetTarget(whatIAmPlacing.transform);
         enemyBase.SetPath(path);
+		enemyBase.gameObject.transform.LookAt(playerBase.transform.position);
 
-        //path.gameObject.transform.position = enemyBase.transform.position/2;
+		//path.gameObject.transform.position = enemyBase.transform.position/2;
 		//path.gameObject.transform.LookAt(enemyBase.transform.position);
-        //path.gameObject.transform.position = enemyBase.transform.position + (path.gameObject.transform.forward * Vector3.Distance(enemyBase.transform.position, playerSpawn.gameObject.transform.position)/2.0f);
+		//path.gameObject.transform.position = enemyBase.transform.position + (path.gameObject.transform.forward * Vector3.Distance(enemyBase.transform.position, playerSpawn.gameObject.transform.position)/2.0f);
 
 		path.resetPath = true;
 		whatIAmPlacing = null;
         startWaveButton.gameObject.SetActive(true);
+		playerBase.gameObject.transform.LookAt(enemyBase.transform.position);
 	}
 
     public void StartWave()
