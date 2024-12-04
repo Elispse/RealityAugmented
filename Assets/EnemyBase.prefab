@@ -134,4 +134,6 @@ MonoBehaviour:
   toSpawn: {fileID: 607499966398372786, guid: 426f9bf9dac15124a80a4abebe080149, type: 3}
   path: {fileID: 0}
   target: {fileID: 0}
-  spawnTime: 1
+  currentWave: 0
+  doneSpawning: 0
+  spawned: []

@@ -78,6 +78,11 @@ public class TowerScript : MonoBehaviour
 	{
         EnemyScript toadd;
 
+
+		if (other.attachedRigidbody == null)
+		{
+			return;
+		}
         other.attachedRigidbody.TryGetComponent<EnemyScript>(out toadd);
 
 		// check if other is an enemy
@@ -110,7 +115,6 @@ public class TowerScript : MonoBehaviour
 	// Gizmos so I can see what is going on
 	private void OnDrawGizmos()
 	{
-		
         Gizmos.color = detectionColor;
         if (enemies.Count > 0)
 		{
