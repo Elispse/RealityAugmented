@@ -1,6 +1,9 @@
+using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Comfort;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,12 +20,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject scanQRUI;
     [SerializeField] private GameObject placeBaseUI;
     [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject loseUI;
 
 	[SerializeField] private GameObject whatIAmPlacing;
 
     private bool qrScanned = false;
+    private bool gamePaused = false;
+    private string sceneToLoad;
 
 	private void Awake()
 	{
@@ -102,6 +108,7 @@ public class GameManager : MonoBehaviour
         gameUI.SetActive(true);
 	}
 
+
     public void StartWave()
     {
         gameUI.transform.GetChild(0).gameObject.SetActive(false);
@@ -130,12 +137,46 @@ public class GameManager : MonoBehaviour
 		//startWaveButton.gameObject.SetActive(false);
 	}
 
-    public void EndGame()
+    public void PauseGame()
     {
-        Destroy(this.gameObject);
+        if (!gamePaused)
+        {
+            pauseUI.SetActive(true);
+            gameUI.SetActive(false);
+            gamePaused = true;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pauseUI.SetActive(false);
+            gameUI.SetActive(true);
+            gamePaused = false;
+            Time.timeScale = 1;
+        }
     }
 
-	private void OnDrawGizmos()
+    public void PlayAgain()
+    {
+        sceneToLoad = "MainScene";
+        StartCoroutine(LoadSceneASync());
+    }
+
+    public void QuitGame()
+    {
+        sceneToLoad = "MainMenu";
+        StartCoroutine(LoadSceneASync());
+    }
+
+    private IEnumerator LoadSceneASync()
+    {
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private void OnDrawGizmos()
 	{
         //Gizmos.DrawSphere(GetSeenPosition(), 1.0f);
         Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.forward * 10000.0f);
