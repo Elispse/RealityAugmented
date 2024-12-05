@@ -1,58 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2397774685211739051
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7506594670718055511}
-  - component: {fileID: 6991813500223661191}
-  m_Layer: 0
-  m_Name: Collision
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7506594670718055511
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2397774685211739051}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4655113418223859005}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6991813500223661191
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2397774685211739051}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.67884815, y: 1.6503062, z: 0.36421776}
-  m_Center: {x: -0.02752347, y: 0.32515258, z: 0.013594143}
 --- !u!1 &6516630015504987691
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +43,7 @@ GameObject:
   - component: {fileID: 4655113418223859005}
   - component: {fileID: 607499966398372786}
   - component: {fileID: 2338459647114142534}
+  - component: {fileID: 3425246867109410226}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -117,7 +65,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 428311322115029367}
-  - {fileID: 7506594670718055511}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &607499966398372786
@@ -134,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 5474181526542279805}
   health: 3
-  speed: 1
+  speed: 0.5
   damage: 1
   range: 0.25
   attackSpeed: 1
@@ -168,6 +115,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &3425246867109410226
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8674024124014460059}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.67884815, y: 1.6503062, z: 0.36421776}
+  m_Center: {x: -0.02752347, y: 0.32515258, z: 0.013594143}
 --- !u!1001 &1914776073783892460
 PrefabInstance:
   m_ObjectHideFlags: 0

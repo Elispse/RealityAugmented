@@ -36,7 +36,11 @@ public class TowerScript : MonoBehaviour
             } 
             else // else, look at the enemy and attack them
             {
+				AimingPart.rotation = Quaternion.identity;
+				ShootPosition.rotation = Quaternion.identity;
 				AimingPart.LookAt(theenemy.transform.position);
+				ShootPosition.LookAt(theenemy.transform.position);
+				//AimingPart.rotation = ShootPosition.rotation;
 
 				// When attack timer reaches 0, attack
 				attackTimer -= Time.deltaTime;
@@ -57,7 +61,7 @@ public class TowerScript : MonoBehaviour
 
 		// currently is just directly damages the enemy. Could spawn a projectile here instead.
 		//theenemy.TakeDamage(damage);
-		Instantiate(projectile);
+		Instantiate(projectile, ShootPosition.position, AimingPart.rotation);
 	}
 
 	/// <summary>
