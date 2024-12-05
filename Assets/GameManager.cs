@@ -14,19 +14,20 @@ public class GameManager : MonoBehaviour
     private PlayerBase playerBase;
     private Pathway path;
 
-    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject scanQRUI;
+    [SerializeField] private GameObject placeBaseUI;
     [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject winUI;
+    [SerializeField] private GameObject loseUI;
 
 	[SerializeField] private GameObject whatIAmPlacing;
 
-	private void Start()
+    private bool qrScanned = false;
+
+	private void Awake()
 	{
-		instance = this;
-		whatIAmPlacing = Instantiate(spawnerSpawn.gameObject, transform);
-        path = Instantiate(pathwaySpawn.gameObject, transform).GetComponent<Pathway>();
-        path.SetBeginning(whatIAmPlacing.transform);
-		enemyBase = whatIAmPlacing.GetComponent<EnemySpawner>();
-        
+        //scanQRUI.SetActive(true);
+        StartGame();
 	}
 
 	private void Update()
@@ -55,18 +56,38 @@ public class GameManager : MonoBehaviour
         return hit.point;
     }
 
+    public void StartGame()
+    {
+        if (!qrScanned)
+        {
+            scanQRUI.SetActive(false);
+            placeBaseUI.SetActive(true);
+
+            instance = this;
+            whatIAmPlacing = Instantiate(spawnerSpawn.gameObject, transform);
+            path = Instantiate(pathwaySpawn.gameObject, transform).GetComponent<Pathway>();
+            path.SetBeginning(whatIAmPlacing.transform);
+            enemyBase = whatIAmPlacing.GetComponent<EnemySpawner>();
+
+            qrScanned = true;
+        }    
+    }
+
     public void SpawnSpawner()
     {
-		//enemyspawnerButton.gameObject.SetActive(false);
+        placeBaseUI.transform.GetChild(0).gameObject.SetActive(false);
+        placeBaseUI.transform.GetChild(1).gameObject.SetActive(false);
 		whatIAmPlacing = Instantiate(playerSpawn.gameObject, transform);
 		path.SetEnding(whatIAmPlacing.transform);
-		//playerbaseButton.gameObject.SetActive(true);
-		playerBase = whatIAmPlacing.GetComponent<PlayerBase>();
-	}
+        
+        playerBase = whatIAmPlacing.GetComponent<PlayerBase>();
+
+        placeBaseUI.transform.GetChild(2).gameObject.SetActive(true);
+        placeBaseUI.transform.GetChild(3).gameObject.SetActive(true);
+    }
 
     public void SpawnBase()
     {
-		//playerbaseButton.gameObject.SetActive(false);
         enemyBase.SetTarget(whatIAmPlacing.transform);
         enemyBase.SetPath(path);
 		enemyBase.gameObject.transform.LookAt(playerBase.transform.localPosition);
@@ -77,48 +98,42 @@ public class GameManager : MonoBehaviour
 
 		path.resetPath = true;
 		whatIAmPlacing = null;
-        //startWaveButton.gameObject.SetActive(true);
 		playerBase.gameObject.transform.LookAt(enemyBase.transform.position);
+        placeBaseUI.SetActive(false);
+        gameUI.SetActive(true);
 	}
-
-    public void StartGame()
-    {
-        mainMenu.SetActive(false);
-
-    }
 
     public void StartWave()
     {
-		//startWaveButton.gameObject.SetActive(false);
+        gameUI.transform.GetChild(0).gameObject.SetActive(false);
+        gameUI.transform.GetChild(1).gameObject.SetActive(false);
 		enemyBase.StartWave();
     }
 
     public void WaveEnd()
     {
-		//startWaveButton.gameObject.SetActive(true);
-		path.resetPath = true;
+        gameUI.transform.GetChild(0).gameObject.SetActive(true);
+        gameUI.transform.GetChild(1).gameObject.SetActive(true);
+        path.resetPath = true;
 	}
 
     public void WinGame()
     {
-        //WinUI.SetActive(true);
+        gameUI.SetActive(false);
+        winUI.SetActive(true);
 		//startWaveButton.gameObject.SetActive(false);
 	}
 
     public void LoseGame()
     {
-		//LoseUI.SetActive(true);
+        gameUI.SetActive(false);
+        loseUI.SetActive(true);
 		//startWaveButton.gameObject.SetActive(false);
 	}
 
     public void EndGame()
     {
         Destroy(this.gameObject);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 
 	private void OnDrawGizmos()
