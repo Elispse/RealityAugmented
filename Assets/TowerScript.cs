@@ -9,7 +9,9 @@ public class TowerScript : MonoBehaviour
     [SerializeField] private float damage = 1.0f;
 
     [SerializeField] private List<EnemyScript> enemies;
-	[SerializeField] private Transform shootingPart;
+	[SerializeField] private Transform AimingPart;
+	[SerializeField] private Transform ShootPosition;
+	[SerializeField] private GameObject projectile;
 
 	[Header("Debug stuff for now")]
 	// Variables here are for debugging and Gizmos purposes, and can probably be removed later
@@ -34,7 +36,11 @@ public class TowerScript : MonoBehaviour
             } 
             else // else, look at the enemy and attack them
             {
-				shootingPart.LookAt(theenemy.transform.position);
+				AimingPart.rotation = Quaternion.identity;
+				ShootPosition.rotation = Quaternion.identity;
+				AimingPart.LookAt(theenemy.transform.position);
+				ShootPosition.LookAt(theenemy.transform.position);
+				//AimingPart.rotation = ShootPosition.rotation;
 
 				// When attack timer reaches 0, attack
 				attackTimer -= Time.deltaTime;
@@ -54,7 +60,8 @@ public class TowerScript : MonoBehaviour
 		resetAttack();
 
 		// currently is just directly damages the enemy. Could spawn a projectile here instead.
-		theenemy.TakeDamage(damage);
+		//theenemy.TakeDamage(damage);
+		Instantiate(projectile, ShootPosition.position, AimingPart.rotation);
 	}
 
 	/// <summary>
