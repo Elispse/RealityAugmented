@@ -1,6 +1,9 @@
+using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Comfort;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,23 +17,22 @@ public class GameManager : MonoBehaviour
     private PlayerBase playerBase;
     private Pathway path;
 
-    [SerializeField] private Button enemyspawnerButton;
-    [SerializeField] private Button playerbaseButton;
-    [SerializeField] private Button startWaveButton;
-    [SerializeField] private GameObject WinUI;
-    [SerializeField] private GameObject LoseUI;
+    [SerializeField] private GameObject scanQRUI;
+    [SerializeField] private GameObject placeBaseUI;
+    [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject pauseUI;
+    [SerializeField] private GameObject winUI;
+    [SerializeField] private GameObject loseUI;
 
 	[SerializeField] private GameObject whatIAmPlacing;
 
-	private void Start()
+    private bool qrScanned = false;
+    private bool gamePaused = false;
+    private string sceneToLoad;
+
+	private void Awake()
 	{
-		instance = this;
-		whatIAmPlacing = Instantiate(spawnerSpawn.gameObject, transform);
-        path = Instantiate(pathwaySpawn.gameObject, transform).GetComponent<Pathway>();
-        path.SetBeginning(whatIAmPlacing.transform);
-        enemyspawnerButton.gameObject.SetActive(true);
-		enemyBase = whatIAmPlacing.GetComponent<EnemySpawner>();
-        
+        scanQRUI.SetActive(true);
 	}
 
 	private void Update()
@@ -59,18 +61,38 @@ public class GameManager : MonoBehaviour
         return hit.point;
     }
 
+    public void StartGame()
+    {
+        if (!qrScanned)
+        {
+            scanQRUI.SetActive(false);
+            placeBaseUI.SetActive(true);
+
+            instance = this;
+            whatIAmPlacing = Instantiate(spawnerSpawn.gameObject, transform);
+            path = Instantiate(pathwaySpawn.gameObject, transform).GetComponent<Pathway>();
+            path.SetBeginning(whatIAmPlacing.transform);
+            enemyBase = whatIAmPlacing.GetComponent<EnemySpawner>();
+
+            qrScanned = true;
+        }    
+    }
+
     public void SpawnSpawner()
     {
-		enemyspawnerButton.gameObject.SetActive(false);
+        placeBaseUI.transform.GetChild(0).gameObject.SetActive(false);
+        placeBaseUI.transform.GetChild(1).gameObject.SetActive(false);
 		whatIAmPlacing = Instantiate(playerSpawn.gameObject, transform);
 		path.SetEnding(whatIAmPlacing.transform);
-		playerbaseButton.gameObject.SetActive(true);
-		playerBase = whatIAmPlacing.GetComponent<PlayerBase>();
-	}
+        
+        playerBase = whatIAmPlacing.GetComponent<PlayerBase>();
+
+        placeBaseUI.transform.GetChild(2).gameObject.SetActive(true);
+        placeBaseUI.transform.GetChild(3).gameObject.SetActive(true);
+    }
 
     public void SpawnBase()
     {
-		playerbaseButton.gameObject.SetActive(false);
         enemyBase.SetTarget(whatIAmPlacing.transform);
         enemyBase.SetPath(path);
 		enemyBase.gameObject.transform.LookAt(playerBase.transform.localPosition);
@@ -81,40 +103,80 @@ public class GameManager : MonoBehaviour
 
 		path.resetPath = true;
 		whatIAmPlacing = null;
-        startWaveButton.gameObject.SetActive(true);
 		playerBase.gameObject.transform.LookAt(enemyBase.transform.position);
+        placeBaseUI.SetActive(false);
+        gameUI.SetActive(true);
 	}
+
 
     public void StartWave()
     {
-		startWaveButton.gameObject.SetActive(false);
+        gameUI.transform.GetChild(0).gameObject.SetActive(false);
+        gameUI.transform.GetChild(1).gameObject.SetActive(false);
 		enemyBase.StartWave();
     }
 
     public void WaveEnd()
     {
-		startWaveButton.gameObject.SetActive(true);
-		path.resetPath = true;
+        gameUI.transform.GetChild(0).gameObject.SetActive(true);
+        gameUI.transform.GetChild(1).gameObject.SetActive(true);
+        path.resetPath = true;
 	}
 
     public void WinGame()
     {
-        WinUI.SetActive(true);
-		startWaveButton.gameObject.SetActive(false);
+        gameUI.SetActive(false);
+        winUI.SetActive(true);
+		//startWaveButton.gameObject.SetActive(false);
 	}
 
     public void LoseGame()
     {
-		LoseUI.SetActive(true);
-		startWaveButton.gameObject.SetActive(false);
+        gameUI.SetActive(false);
+        loseUI.SetActive(true);
+		//startWaveButton.gameObject.SetActive(false);
 	}
 
-    public void EndGame()
+    public void PauseGame()
     {
-        Destroy(this.gameObject);
+        if (!gamePaused)
+        {
+            pauseUI.SetActive(true);
+            gameUI.SetActive(false);
+            gamePaused = true;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pauseUI.SetActive(false);
+            gameUI.SetActive(true);
+            gamePaused = false;
+            Time.timeScale = 1;
+        }
     }
 
-	private void OnDrawGizmos()
+    public void PlayAgain()
+    {
+        sceneToLoad = "MainScene";
+        StartCoroutine(LoadSceneASync());
+    }
+
+    public void QuitGame()
+    {
+        sceneToLoad = "MainMenu";
+        StartCoroutine(LoadSceneASync());
+    }
+
+    private IEnumerator LoadSceneASync()
+    {
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneToLoad);
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private void OnDrawGizmos()
 	{
         //Gizmos.DrawSphere(GetSeenPosition(), 1.0f);
         Gizmos.DrawLine(Camera.main.transform.position, Camera.main.transform.forward * 10000.0f);
