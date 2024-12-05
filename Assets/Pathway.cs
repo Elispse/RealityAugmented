@@ -75,9 +75,15 @@ public class Pathway : MonoBehaviour
 		List<Vector3> linepositions = new List<Vector3>();
 
 		// first add the beginning position to the path
-		thePath.Spline.Add(new BezierKnot(beginning.position ), TangentMode.AutoSmooth);
-		linepositions.Add(beginning.position );
+		thePath.Spline.Add(new BezierKnot(beginning.position), TangentMode.AutoSmooth);
+		linepositions.Add(beginning.position);
 
+
+
+		// I got this section of code from https://discussions.unity.com/t/perpendicular-to-a-3d-direction-vector/184973/3
+		// It gets a vector perpendicular to the pathway direction
+		Vector3 dir = ending.position - beginning.position;
+		Vector3 left = Vector3.Cross(dir, Vector3.up).normalized;
 		// for every path segment between the beginning and end, offset it perpendicular to the direction of the path
 		for (int i = 1; i < pathSegments; i++)
 		{
@@ -85,22 +91,23 @@ public class Pathway : MonoBehaviour
 
 			Vector3 segmentPosition = Vector3.Lerp(beginning.position, ending.position, distanceAlongPath);
 
-			// I got this section of code from https://discussions.unity.com/t/perpendicular-to-a-3d-direction-vector/184973/3
-			// It gets a vector perpendicular to the pathway direction
-			Vector3 dir = ending.position - beginning.position;
-			Vector3 left = Vector3.Cross(dir, Vector3.up).normalized;
-
 			segmentPosition += left.normalized * Random.Range(-pathVariance, pathVariance);
 
-			thePath.Spline.Add(new BezierKnot(segmentPosition ), TangentMode.AutoSmooth);
-			linepositions.Add(segmentPosition );
+			thePath.Spline.Add(new BezierKnot(segmentPosition), TangentMode.AutoSmooth);
+			linepositions.Add(segmentPosition);
 		}
 
 		// finally, add the ending position to the path
-		thePath.Spline.Add(new BezierKnot(ending.position ), TangentMode.AutoSmooth);
-		linepositions.Add(ending.position );
+		thePath.Spline.Add(new BezierKnot(ending.position), TangentMode.AutoSmooth);
+		linepositions.Add(ending.position);
 
 		lineRenderer.positionCount = linepositions.Count;
+
+		for (int i = 0; i < linepositions.Count; i++)
+		{
+			linepositions[i] = new Vector3(linepositions[i].x, linepositions[i].y + (Vector3.Cross(left, dir).normalized * 0.01f).y, linepositions[i].z);
+		}
+
 		lineRenderer.SetPositions(linepositions.ToArray());
 	}
 }

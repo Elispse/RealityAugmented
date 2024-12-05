@@ -29,7 +29,7 @@ public class PlayerBase : MonoBehaviour
 	public void DamageBase(float damage)
     {
 		usedHealth -= damage;
-        if (health <= 0)
+        if (usedHealth <= 0)
         {
             GameManager.instance.LoseGame();
         }
