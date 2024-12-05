@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-        //scanQRUI.SetActive(true);
-        StartGame();
+        scanQRUI.SetActive(true);
 	}
 
 	private void Update()
