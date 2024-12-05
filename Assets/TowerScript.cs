@@ -9,6 +9,7 @@ public class TowerScript : MonoBehaviour
     [SerializeField] private float damage = 1.0f;
 
     [SerializeField] private List<EnemyScript> enemies;
+	[SerializeField] private Transform shootingPart;
 
 	[Header("Debug stuff for now")]
 	// Variables here are for debugging and Gizmos purposes, and can probably be removed later
@@ -33,7 +34,7 @@ public class TowerScript : MonoBehaviour
             } 
             else // else, look at the enemy and attack them
             {
-                transform.LookAt(theenemy.transform.position);
+				shootingPart.LookAt(theenemy.transform.position);
 
 				// When attack timer reaches 0, attack
 				attackTimer -= Time.deltaTime;
@@ -77,7 +78,6 @@ public class TowerScript : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
         EnemyScript toadd;
-
 
 		if (other.attachedRigidbody == null)
 		{
