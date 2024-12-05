@@ -14,11 +14,8 @@ public class GameManager : MonoBehaviour
     private PlayerBase playerBase;
     private Pathway path;
 
-    [SerializeField] private Button enemyspawnerButton;
-    [SerializeField] private Button playerbaseButton;
-    [SerializeField] private Button startWaveButton;
-    [SerializeField] private GameObject WinUI;
-    [SerializeField] private GameObject LoseUI;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject gameUI;
 
 	[SerializeField] private GameObject whatIAmPlacing;
 
@@ -28,7 +25,6 @@ public class GameManager : MonoBehaviour
 		whatIAmPlacing = Instantiate(spawnerSpawn.gameObject, transform);
         path = Instantiate(pathwaySpawn.gameObject, transform).GetComponent<Pathway>();
         path.SetBeginning(whatIAmPlacing.transform);
-        enemyspawnerButton.gameObject.SetActive(true);
 		enemyBase = whatIAmPlacing.GetComponent<EnemySpawner>();
         
 	}
@@ -61,16 +57,16 @@ public class GameManager : MonoBehaviour
 
     public void SpawnSpawner()
     {
-		enemyspawnerButton.gameObject.SetActive(false);
+		//enemyspawnerButton.gameObject.SetActive(false);
 		whatIAmPlacing = Instantiate(playerSpawn.gameObject, transform);
 		path.SetEnding(whatIAmPlacing.transform);
-		playerbaseButton.gameObject.SetActive(true);
+		//playerbaseButton.gameObject.SetActive(true);
 		playerBase = whatIAmPlacing.GetComponent<PlayerBase>();
 	}
 
     public void SpawnBase()
     {
-		playerbaseButton.gameObject.SetActive(false);
+		//playerbaseButton.gameObject.SetActive(false);
         enemyBase.SetTarget(whatIAmPlacing.transform);
         enemyBase.SetPath(path);
 		enemyBase.gameObject.transform.LookAt(playerBase.transform.localPosition);
@@ -81,37 +77,48 @@ public class GameManager : MonoBehaviour
 
 		path.resetPath = true;
 		whatIAmPlacing = null;
-        startWaveButton.gameObject.SetActive(true);
+        //startWaveButton.gameObject.SetActive(true);
 		playerBase.gameObject.transform.LookAt(enemyBase.transform.position);
 	}
 
+    public void StartGame()
+    {
+        mainMenu.SetActive(false);
+
+    }
+
     public void StartWave()
     {
-		startWaveButton.gameObject.SetActive(false);
+		//startWaveButton.gameObject.SetActive(false);
 		enemyBase.StartWave();
     }
 
     public void WaveEnd()
     {
-		startWaveButton.gameObject.SetActive(true);
+		//startWaveButton.gameObject.SetActive(true);
 		path.resetPath = true;
 	}
 
     public void WinGame()
     {
-        WinUI.SetActive(true);
-		startWaveButton.gameObject.SetActive(false);
+        //WinUI.SetActive(true);
+		//startWaveButton.gameObject.SetActive(false);
 	}
 
     public void LoseGame()
     {
-		LoseUI.SetActive(true);
-		startWaveButton.gameObject.SetActive(false);
+		//LoseUI.SetActive(true);
+		//startWaveButton.gameObject.SetActive(false);
 	}
 
     public void EndGame()
     {
         Destroy(this.gameObject);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
 	private void OnDrawGizmos()
