@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 	[Header("Spawner Requirements")]
 	[SerializeField] private EnemyScript toSpawn;
     [SerializeField] private Pathway path;
+	[SerializeField] private Transform target;
 
 	[Header("Spawner Stats")]
 	[SerializeField] private float spawnTime = 1.0f;
@@ -22,6 +23,7 @@ public class EnemySpawner : MonoBehaviour
 
 		EnemyScript spawned = Instantiate(toSpawn.gameObject, transform.position, Quaternion.identity).GetComponent<EnemyScript>();
 		spawned.SetPath(path);
+		spawned.SetTarget(target);
 
 		StartCoroutine(spawnTimer());
     }

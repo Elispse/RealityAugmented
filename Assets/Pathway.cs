@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -17,7 +18,14 @@ public class Pathway : MonoBehaviour
     {
         thePath = GetComponent<SplineContainer>();
 		ResetSplinePath();
-		
+		StartCoroutine(ResetStuff());
+	}
+
+	private IEnumerator ResetStuff()
+	{
+		resetPath = true;
+		yield return new WaitForSeconds(30);
+		StartCoroutine(ResetStuff());
 	}
 
 	private void Update()
