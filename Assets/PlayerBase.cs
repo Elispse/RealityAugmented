@@ -31,7 +31,7 @@ public class PlayerBase : MonoBehaviour
 		usedHealth -= damage;
         if (health <= 0)
         {
-            Debug.Log("I have died now do something about it");
+            GameManager.instance.LoseGame();
         }
 
         healthSlider.value = usedHealth / health; 

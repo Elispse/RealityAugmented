@@ -3,6 +3,8 @@ using UnityEngine.Splines;
 
 public class EnemyScript : MonoBehaviour
 {
+	[SerializeField] private Animator animator;
+
 	[Header("Enemy Stats")]
     [SerializeField] private float health = 1;
     [SerializeField] private float speed = 2;
@@ -27,8 +29,7 @@ public class EnemyScript : MonoBehaviour
 			attackTimer -= Time.deltaTime;
 			if (attackTimer <= 0)
 			{
-				PlayerBase.instance.DamageBase(damage);
-				resetAttack();
+				animator.SetTrigger("Attack");
 			}
 
 			return;
@@ -47,6 +48,12 @@ public class EnemyScript : MonoBehaviour
 			PlayerBase.instance.DamageBase(damage);
 		}
     }
+
+	public void AttackBase()
+	{
+		PlayerBase.instance.DamageBase(damage);
+		resetAttack();
+	}
 
 	private void resetAttack()
 	{
