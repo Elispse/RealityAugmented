@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064394c1d026bfe4e8fe8c1b8c099691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qrDetectionIntervalMilliseconds: 1000
+  qrDetectionIntervalMilliseconds: 1
 --- !u!114 &39075014
 MonoBehaviour:
   m_ObjectHideFlags: 0
