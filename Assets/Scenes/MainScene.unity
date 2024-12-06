@@ -991,6 +991,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 24254680807148325, guid: 601bec3b9fe1fa4478fba4476c736f57,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1897601300}
+    - target: {fileID: 24254680807148325, guid: 601bec3b9fe1fa4478fba4476c736f57,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaceTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 24254680807148325, guid: 601bec3b9fe1fa4478fba4476c736f57,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 24254680807148325, guid: 601bec3b9fe1fa4478fba4476c736f57,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4482921541147926940, guid: 601bec3b9fe1fa4478fba4476c736f57,
         type: 3}
       propertyPath: m_IsActive
