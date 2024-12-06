@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject scanQRUI;
     [SerializeField] private GameObject placeBaseUI;
     [SerializeField] private GameObject gameUI;
-    [SerializeField] private GameObject towerMoveUI;
+	[SerializeField] private GameObject towerPlaceUI;
+	[SerializeField] private GameObject towerGrabUI;
+	[SerializeField] private GameObject towerReleaseUI;
 	[SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject loseUI;
@@ -59,16 +61,19 @@ public class GameManager : MonoBehaviour
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(ray, out hit, 10000.0f, LayerMask.NameToLayer("default"), QueryTriggerInteraction.Ignore);
 
-  //      if (hit.rigidbody.GetComponent<TowerScript>() != null)
-  //      {
-		//	towerMoveUI.SetActive(true);
-		//}
-  //      else
-  //      {
-  //          towerMoveUI.SetActive(false);
-  //      }
+        if (hit.rigidbody)
+        {
+			if (hit.rigidbody.GetComponent<TowerScript>() != null && whatIAmPlacing == null)
+			{
+				towerGrabUI.SetActive(true);
+			}
+		}
+		else
+		{
+			towerGrabUI.SetActive(false);
+		}
 
-        if (hit.point == Vector3.zero)
+		if (hit.point == Vector3.zero)
         {
             return Camera.main.transform.position;
         }
@@ -127,21 +132,27 @@ public class GameManager : MonoBehaviour
     {
         Vector3 spwanPos = GetSeenPosition();
 
-		Instantiate(towerSpawn.gameObject, spwanPos, Quaternion.identity, transform);
-
 		if (spwanPos != Vector3.zero)
         {
-            
-        }
-    }
+			Instantiate(towerSpawn.gameObject, spwanPos, Quaternion.identity, transform);
+		}
+
+		towerPlaceUI.SetActive(false);
+	}
 
     public void GrabTower()
     {
-        whatIAmPlacing = movingTower;
-    }
+		Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+		RaycastHit hit = new RaycastHit();
+		Physics.Raycast(ray, out hit, 10000.0f, LayerMask.NameToLayer("default"), QueryTriggerInteraction.Ignore);
+		whatIAmPlacing = hit.rigidbody.gameObject;
+        towerReleaseUI.SetActive(true);
+
+	}
 	public void ReleaseTower()
 	{
         whatIAmPlacing = null;
+		towerReleaseUI.SetActive(false);
 	}
 
 	public void StartWave()
@@ -156,6 +167,7 @@ public class GameManager : MonoBehaviour
         gameUI.transform.GetChild(0).gameObject.SetActive(true);
         gameUI.transform.GetChild(1).gameObject.SetActive(true);
         path.resetPath = true;
+		towerPlaceUI.SetActive(true);
 	}
 
     public void WinGame()
