@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     private Pathway path;
     private GameObject movingTower;
 
-    [SerializeField] private GameObject scanQRUI;
+    [SerializeField] private LayerMask placementLayerMask;
+    [SerializeField] private LayerMask towerLayerMask;
+
+	[SerializeField] private GameObject scanQRUI;
     [SerializeField] private GameObject placeBaseUI;
     [SerializeField] private GameObject gameUI;
 	[SerializeField] private GameObject towerPlaceUI;
@@ -37,11 +40,13 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-        scanQRUI.SetActive(true);
+        //scanQRUI.SetActive(true);
+        StartGame();
 	}
 
 	private void Update()
 	{
+        IsOnTower();
         if (whatIAmPlacing == null)
         {
             return;
@@ -53,25 +58,14 @@ public class GameManager : MonoBehaviour
         {
 			whatIAmPlacing.transform.position = spwanPos;
 		}
+
 	}
 
 	public Vector3 GetSeenPosition()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit = new RaycastHit();
-        Physics.Raycast(ray, out hit, 10000.0f, LayerMask.NameToLayer("default"), QueryTriggerInteraction.Ignore);
-
-        if (hit.rigidbody)
-        {
-			if (hit.rigidbody.GetComponent<TowerScript>() != null && whatIAmPlacing == null)
-			{
-				towerGrabUI.SetActive(true);
-			}
-		}
-		else
-		{
-			towerGrabUI.SetActive(false);
-		}
+        Physics.Raycast(ray, out hit, 10000.0f, placementLayerMask, QueryTriggerInteraction.Ignore);
 
 		if (hit.point == Vector3.zero)
         {
@@ -80,6 +74,32 @@ public class GameManager : MonoBehaviour
 
         return hit.point;
     }
+
+    public void IsOnTower()
+    {
+        if (whatIAmPlacing != null)
+        {
+            return;
+        }
+
+		Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+		RaycastHit hit = new RaycastHit();
+		Physics.Raycast(ray, out hit, 10000.0f, towerLayerMask, QueryTriggerInteraction.Ignore);
+
+        if (hit.rigidbody)
+        {
+            if (hit.rigidbody.GetComponent<TowerScript>() != null && whatIAmPlacing == null)
+            {
+                towerGrabUI.SetActive(true);
+            }
+        }
+        else
+        {
+            towerGrabUI.SetActive(false);
+        }
+
+        Debug.Log("Testing");
+	}
 
     public void StartGame()
     {
@@ -144,10 +164,11 @@ public class GameManager : MonoBehaviour
     {
 		Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 		RaycastHit hit = new RaycastHit();
-		Physics.Raycast(ray, out hit, 10000.0f, LayerMask.NameToLayer("default"), QueryTriggerInteraction.Ignore);
+		Physics.Raycast(ray, out hit, 10000.0f, towerLayerMask);
+        Debug.Log(hit.collider.gameObject.name);    
 		whatIAmPlacing = hit.rigidbody.gameObject;
         towerReleaseUI.SetActive(true);
-
+        towerGrabUI.SetActive(false);
 	}
 	public void ReleaseTower()
 	{
