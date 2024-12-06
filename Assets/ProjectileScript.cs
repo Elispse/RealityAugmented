@@ -34,7 +34,8 @@ public class ProjectileScript : MonoBehaviour
 		if (collision.gameObject.GetComponent<EnemyScript>() != null)
 		{
 			collision.gameObject.GetComponent<EnemyScript>().TakeDamage(damage);
-		}
+            Destroy(gameObject);
+        }
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -42,6 +43,7 @@ public class ProjectileScript : MonoBehaviour
 		if (other.GetComponent<EnemyScript>() != null)
         {
             other.GetComponent<EnemyScript>().TakeDamage(damage);
+            Destroy(gameObject);
         }
 	}
 }
