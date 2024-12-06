@@ -8,6 +8,8 @@ public class ProjectileScript : MonoBehaviour
     [SerializeField] private float lifetime = 2;
     [SerializeField] private float damage = 2;
 
+    public EnemyScript enemy;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +19,7 @@ public class ProjectileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(enemy.gameObject.transform.position);
         transform.Translate(transform.forward * Time.deltaTime * speed, Space.World);
     }
 

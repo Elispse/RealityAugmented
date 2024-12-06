@@ -61,7 +61,8 @@ public class TowerScript : MonoBehaviour
 
 		// currently is just directly damages the enemy. Could spawn a projectile here instead.
 		//theenemy.TakeDamage(damage);
-		Instantiate(projectile, ShootPosition.position, AimingPart.rotation);
+		ProjectileScript proj = Instantiate(projectile, ShootPosition.position, AimingPart.rotation).GetComponent<ProjectileScript>();
+		proj.enemy = theenemy;
 	}
 
 	/// <summary>
