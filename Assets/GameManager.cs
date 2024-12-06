@@ -51,8 +51,6 @@ public class GameManager : MonoBehaviour
         {
 			whatIAmPlacing.transform.position = spwanPos;
 		}
-
-        
 	}
 
 	public Vector3 GetSeenPosition()
@@ -61,14 +59,14 @@ public class GameManager : MonoBehaviour
         RaycastHit hit = new RaycastHit();
         Physics.Raycast(ray, out hit, 10000.0f, LayerMask.NameToLayer("default"), QueryTriggerInteraction.Ignore);
 
-        if (hit.rigidbody.GetComponent<TowerScript>())
-        {
-			towerMoveUI.SetActive(true);
-		}
-        else
-        {
-            towerMoveUI.SetActive(false);
-        }
+  //      if (hit.rigidbody.GetComponent<TowerScript>() != null)
+  //      {
+		//	towerMoveUI.SetActive(true);
+		//}
+  //      else
+  //      {
+  //          towerMoveUI.SetActive(false);
+  //      }
 
         if (hit.point == Vector3.zero)
         {
