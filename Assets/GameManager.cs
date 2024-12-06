@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-        //scanQRUI.SetActive(true);
-        StartGame();
+        scanQRUI.SetActive(true);
+        //StartGame();
 	}
 
 	private void Update()
